@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>SELKIE’S WAKE — Classified Portal</title>
+  <style>
+    :root {
+      --bg: #0c0f12;
+      --panel: #0f1318;
+      --ink: #e6e5e1;
+      --muted: #a7acae;
+      --accent: #7bd3ff;
+      --accent-dim: #3fa3d7;
+      --danger: #ff6b6b;
+      --ok: #8be28b;
+    }
+    html, body {
+      height: 100%; margin: 0;
+      color: var(--ink);
+      background: radial-gradient(1200px 800px at 60% 30%, #131922 0%, #0a0d10 60%, #050608 100%);
+      font: 15px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .wrap { min-height: 100%; display: grid; place-items: center; padding: 32px; }
+    .card {
+      width: 100%; max-width: 720px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.02)), repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 24px);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+    header {
+      padding: 18px 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .badge { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px; background: conic-gradient(from 45deg, #1b2430, #17202a); border: 1px solid rgba(255,255,255,0.08); color: var(--accent); font-weight: 700; }
+    .titleblock { display: grid; }
+    .small { color: var(--muted); opacity: 0.9; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; }
+    h1 { margin: 2px 0 0 0; font-size: 18px; letter-spacing: 0.6px; font-weight: 700; }
+    main { padding: 28px 22px 24px; display: grid; gap: 18px; }
+    .notice { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); padding: 10px 12px; border-radius: 10px; font-size: 13px; }
+    .label-row { display: flex; align-items: baseline; gap: 10px; color: var(--muted); }
+    .label-row strong { color: var(--ink); letter-spacing: 0.8px; }
+    form { display: grid; gap: 12px; margin-top: 4px; }
+    label { font-size: 13px; color: var(--muted); }
+    .input { display: flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 14px; }
+    .input:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(123,211,255,0.12); }
+    input[type="text"] { flex: 1; background: transparent; border: 0; outline: none; color: var(--ink); font-size: 16px; }
+    input::placeholder { color: #76808a; }
+    .btn { cursor: pointer; background: linear-gradient(180deg, var(--accent), var(--accent-dim)); color: #06131a; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 700; letter-spacing: 0.6px; }
+    .btn:active { transform: translateY(1px); }
+    .help { color: var(--muted); font-size: 12px; }
+    .foot { padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color: var(--muted); font-size: 12px; }
+    .status.ok { color: var(--ok); }
+    .status.warn { color: var(--danger); }
+    .reveal { display: none; margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px; }
+    @media (max-width: 480px) { .card { border-radius: 0; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card" role="region" aria-labelledby="portalTitle">
+      <header>
+        <div class="badge">SW</div>
+        <div class="titleblock">
+          <div class="small">Selkie’s Wake — Intranet Node</div>
+          <h1 id="portalTitle">CLASSIFIED // EYES ONLY</h1>
+        </div>
+      </header>
+      <main>
+        <div class="notice"><strong>Secure Portal</strong> — Enter dossier path name to continue.</div>
+        <form id="dossierForm" autocomplete="off" novalidate>
+          <label for="slug">Dossier path</label>
+          <div class="input"><input id="slug" name="slug" type="text" placeholder="/dossiers/&hellip;" /></div>
+          <button class="btn" type="submit">Open dossier</button>
+          <div id="status" class="help"></div>
+        </form>
+        <form id="counterForm" autocomplete="off" novalidate>
+          <label for="key">Counter‑sign (optional)</label>
+          <div class="input"><input id="key" name="key" type="text" placeholder="Enter countersign to unredact" /></div>
+          <button class="btn" type="submit">Verify</button>
+          <div id="hint" class="help">Try <code>HARMONIC KEY</code></div>
+        </form>
+        <div id="reveal" class="reveal">
+          <p><strong>Unredacted fragment:</strong></p>
+          <p>Counter‑measure confirmed. Maintain harmonic integrity. Subject Phallen compromised beyond containment.</p>
+        </div>
+      </main>
+      <div class="foot"><div>Node: <span class="status ok">docs.selkieswake/local</span></div><div>Build #7 · KAIROS/Δ</div></div>
+    </section>
+  </div>
+  <script>
+    const form = document.getElementById('dossierForm');
+    const input = document.getElementById('slug');
+    const status = document.getElementById('status');
+    const counterForm = document.getElementById('counterForm');
+    const keyInput = document.getElementById('key');
+    const reveal = document.getElementById('reveal');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const s = input.value.trim().toLowerCase();
+      if(!s) return;
+      status.textContent = 'Opening ' + s + ' …';
+      window.location.href = s.startsWith('/') ? s : '/dossiers/' + s;
+    });
+
+    counterForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const val = keyInput.value.trim().toUpperCase();
+      if(val === 'HARMONIC KEY') {
+        reveal.style.display = 'block';
+      } else {
+        reveal.style.display = 'none';
+        alert('Invalid countersign');
+      }
+    });
+  </script>
+</body>
+</html>
